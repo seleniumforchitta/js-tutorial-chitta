@@ -124,14 +124,14 @@ Just visit the live URL above. No installation needed.
 **Option 2 — Run it locally**
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/js-tutorial.git
+git clone https://github.com/your-username/js-tutorial-chitta.git
 
 # Open in browser — no build step needed
 open index.html
 ```
 
 **Option 3 — Deploy your own copy**
-Fork this repo → go to Settings → Pages → select `main` branch → save. Your own copy will be live at `https://your-username.github.io/js-tutorial/` in about 60 seconds.
+Fork this repo → go to Settings → Pages → select `main` branch → save. Your own copy will be live at `https://your-username.github.io/js-tutorial-chitta/` in about 60 seconds.
 
 ---
 
