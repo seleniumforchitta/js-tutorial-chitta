@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Tutorial by Chitta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #0a0a0f;
+    --bg2:       #0f0f1a;
+    --bg3:       #14141f;
+    --bg4:       #1a1a28;
+    --surface:   #1e1e2e;
+    --surface2:  #252538;
+    --border:    rgba(255,255,255,0.07);
+    --border2:   rgba(255,255,255,0.12);
+    --accent:    #f7c948;
+    --accent2:   #e8a020;
+    --js:        #f7c948;
+    --teal:      #4ecdc4;
+    --coral:     #ff6b6b;
+    --purple:    #a78bfa;
+    --green:     #6bcb77;
+    --text:      #e8e8f0;
+    --text2:     #9999b8;
+    --text3:     #5f5f80;
+    --mono:      'Space Mono', monospace;
+    --display:   'Syne', sans-serif;
+    --body:      'DM Sans', sans-serif;
+    --radius:    12px;
+    --radius-lg: 20px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3rem;
+    height: 64px;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .logo-badge {
+    width: 32px; height: 32px;
+    background: var(--accent);
+    color: #0a0a0f;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 8px;
+    letter-spacing: -0.5px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text2);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    background: var(--accent);
+    color: #0a0a0f;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 8px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-family: var(--mono);
+    transition: opacity 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(247,201,72,0.12) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -60%);
+    pointer-events: none;
+  }
+
+  .hero-glow2 {
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(78,205,196,0.07) 0%, transparent 70%);
+    bottom: 10%; right: 10%;
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.1s ease forwards;
+  }
+
+  .hero h1 {
+    font-family: var(--display);
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.2s ease forwards;
+  }
+
+  .hero h1 .accent-word {
+    color: var(--accent);
+    position: relative;
+    display: inline-block;
+  }
+
+  .hero-sub {
+    font-family: var(--display);
+    font-size: clamp(2.5rem, 6vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: var(--text3);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.3s ease forwards;
+  }
+
+  .hero-byline {
+    font-size: 14px;
+    color: var(--text2);
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.35s ease forwards;
+  }
+
+  .hero-byline span {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .hero-desc {
+    font-size: 18px;
+    color: var(--text2);
+    max-width: 560px;
+    line-height: 1.65;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.4s ease forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 4rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.5s ease forwards;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0a0a0f;
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 14px;
+    padding: 14px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: transform 0.15s, opacity 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+
+  .btn-ghost {
+    border: 1px solid var(--border2);
+    color: var(--text2);
+    font-family: var(--mono);
+    font-size: 14px;
+    padding: 14px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+    background: transparent;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── STATS ── */
+  .stats-bar {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    max-width: 680px;
+    width: 100%;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.6s ease forwards;
+  }
+
+  .stat-item {
+    flex: 1;
+    padding: 1.25rem 1rem;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .stat-item:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: var(--mono);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text3);
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* ── CODE TICKER ── */
+  .code-ticker {
+    background: var(--bg3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-top: 0;
+  }
+
+  .ticker-inner {
+    display: inline-flex;
+    gap: 3rem;
+    animation: ticker 30s linear infinite;
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+
+  .ticker-item { color: var(--text3); }
+  .ticker-item .kw { color: var(--purple); }
+  .ticker-item .fn { color: var(--accent); }
+  .ticker-item .str { color: var(--green); }
+  .ticker-item .num { color: var(--coral); }
+  .ticker-item .cm { color: var(--text3); }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── SECTIONS ── */
+  section { position: relative; z-index: 1; }
+
+  .section-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+  }
+
+  .section-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: var(--display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  .section-desc {
+    font-size: 17px;
+    color: var(--text2);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+
+  /* ── PHASE ROADMAP ── */
+  .roadmap {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .phases-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .phase-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+    cursor: pointer;
+  }
+  .phase-row:last-child { border-bottom: none; }
+  .phase-row:hover { background: rgba(247,201,72,0.03); }
+  .phase-row.open { background: rgba(247,201,72,0.04); }
+
+  .phase-sidebar {
+    padding: 2rem 1.5rem;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .phase-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: 0.1em;
+  }
+
+  .phase-name {
+    font-family: var(--display);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .phase-duration {
+    font-size: 12px;
+    color: var(--text3);
+    font-family: var(--mono);
+  }
+
+  .phase-level-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 5px;
+    margin-top: 4px;
+    font-family: var(--mono);
+    width: fit-content;
+  }
+
+  .phase-main {
+    padding: 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .phase-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .phase-tagline {
+    font-size: 15px;
+    color: var(--text2);
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .phase-toggle {
+    width: 28px; height: 28px;
+    border: 1px solid var(--border2);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    color: var(--text3);
+    transition: all 0.2s;
+    flex-shrink: 0;
+    user-select: none;
+  }
+
+  .phase-row.open .phase-toggle { color: var(--accent); border-color: var(--accent); }
+
+  .phase-details {
+    display: none;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .phase-row.open .phase-details { display: block; }
+
+  .topics-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 1.5rem;
+  }
+
+  .topic-chip {
+    font-size: 12px;
+    font-family: var(--mono);
+    background: var(--surface);
+    color: var(--text2);
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .topic-chip:hover { border-color: var(--accent); color: var(--accent); }
+
+  .detail-label {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--text3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .video-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 1.5rem;
+  }
+
+  .video-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .video-link:hover { border-color: var(--coral); background: rgba(255,107,107,0.04); }
+
+  .vl-icon {
+    width: 32px; height: 32px;
+    background: rgba(255,107,107,0.15);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .play-btn {
+    width: 0; height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 10px solid var(--coral);
+    margin-left: 2px;
+  }
+
+  .vl-text .vt { font-size: 13px; color: var(--text); font-weight: 500; }
+  .vl-text .vm { font-size: 12px; color: var(--text3); margin-top: 1px; }
+
+  .projects-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .project-chip {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 13px;
+    color: var(--text2);
+  }
+
+  .project-chip::before {
+    content: '▸ ';
+    color: var(--accent);
+    font-size: 11px;
+  }
+
+  /* ── FEATURES ── */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .feature-card {
+    background: var(--bg);
+    padding: 2rem;
+    transition: background 0.2s;
+  }
+
+  .feature-card:hover { background: var(--bg3); }
+
+  .feat-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    margin-bottom: 1.25rem;
+  }
+
+  .feat-title {
+    font-family: var(--display);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .feat-desc {
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.65;
+  }
+
+  /* ── CODE BLOCK ── */
+  .code-section {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .code-showcase {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .code-panel {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .code-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .code-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+
+  .code-filename {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text3);
+    margin-left: 4px;
+  }
+
+  .code-body {
+    padding: 1.5rem;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.8;
+    overflow-x: auto;
+  }
+
+  .kw  { color: #ff79c6; }
+  .fn  { color: #f7c948; }
+  .str { color: #6bcb77; }
+  .num { color: #bd93f9; }
+  .cm  { color: #44475a; }
+  .op  { color: var(--text2); }
+  .var { color: #8be9fd; }
+
+  /* ── RESOURCES ── */
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .res-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    text-decoration: none;
+    display: block;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+
+  .res-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+
+  .res-type {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .res-name {
+    font-family: var(--display);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+
+  .res-desc {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-logo .accent { color: var(--accent); }
+
+  .footer-sub {
+    font-size: 14px;
+    color: var(--text3);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    list-style: none;
+    margin-bottom: 2rem;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: var(--text3);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--accent); }
+
+  .footer-copy {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text3);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .phase-progress {
+    height: 3px;
+    border-radius: 2px;
+    background: var(--border);
+    margin-top: 10px;
+    overflow: hidden;
+  }
+
+  .phase-progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.6s ease;
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { display: none; }
+    .phase-row { grid-template-columns: 1fr; }
+    .phase-sidebar { border-right: none; border-bottom: 1px solid var(--border); padding: 1.25rem; }
+    .code-showcase { grid-template-columns: 1fr; }
+    .section-wrap { padding: 4rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-badge">JS</div>
+    JavaScript Tutorial <span style="color:var(--accent);font-weight:800;margin-left:4px;">by Chitta</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#curriculum">Curriculum</a></li>
+    <li><a href="#code">Code</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+  <a href="#roadmap" class="nav-cta">Start Learning →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+
+  <p class="hero-eyebrow">// From zero to JavaScript expert</p>
+  <h1>Master <span class="accent-word">JavaScript</span></h1>
+  <div class="hero-sub">the language of the web.</div>
+  <p class="hero-byline">A complete learning journey crafted by <span style="color:var(--accent);font-size:17px;font-family:var(--display);font-weight:800;letter-spacing:-0.01em;background:rgba(247,201,72,0.1);padding:2px 10px;border-radius:6px;border:1px solid rgba(247,201,72,0.25);">Chitta</span></p>
+  <p class="hero-desc">A structured, project-driven curriculum that takes you from your very first variable all the way to engine internals and expert-level architecture.</p>
+
+  <div class="hero-actions">
+    <a href="#roadmap" class="btn-primary">Begin the Journey →</a>
+    <a href="#curriculum" class="btn-ghost">View Curriculum</a>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-num">5</span>
+      <span class="stat-label">Learning Phases</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">40+</span>
+      <span class="stat-label">Core Topics</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">12+</span>
+      <span class="stat-label">Build Projects</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">∞</span>
+      <span class="stat-label">Free Resources</span>
+    </div>
+  </div>
+</section>
+
+<!-- CODE TICKER -->
+<div class="code-ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item"><span class="kw">const</span> <span class="var">greet</span> = <span class="fn">name</span> =&gt; <span class="str">`Hello, ${name}!`</span></span>
+    <span class="ticker-item"><span class="kw">async function</span> <span class="fn">fetchData</span>() { <span class="kw">await</span> fetch(<span class="str">'https://api.js.dev'</span>) }</span>
+    <span class="ticker-item"><span class="cm">// Closures, Promises, Prototypes, ES2024+</span></span>
+    <span class="ticker-item">[<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>].<span class="fn">map</span>(x =&gt; x * <span class="num">2</span>).<span class="fn">filter</span>(x =&gt; x &gt; <span class="num">2</span>)</span>
+    <span class="ticker-item"><span class="kw">class</span> <span class="fn">EventEmitter</span> { <span class="fn">on</span>(event, cb) { <span class="cm">/* Observer pattern */</span> } }</span>
+    <span class="ticker-item"><span class="kw">const</span> { <span class="var">name</span>, ...rest } = <span class="var">user</span> <span class="cm">// Destructuring + spread</span></span>
+    <span class="ticker-item"><span class="kw">function</span>* <span class="fn">generator</span>() { <span class="kw">yield</span> <span class="num">42</span>; <span class="kw">yield</span> <span class="num">100</span>; }</span>
+    <span class="ticker-item"><span class="cm">// Phase 1 → 5: Beginner to Expert</span></span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item"><span class="kw">const</span> <span class="var">greet</span> = <span class="fn">name</span> =&gt; <span class="str">`Hello, ${name}!`</span></span>
+    <span class="ticker-item"><span class="kw">async function</span> <span class="fn">fetchData</span>() { <span class="kw">await</span> fetch(<span class="str">'https://api.js.dev'</span>) }</span>
+    <span class="ticker-item"><span class="cm">// Closures, Promises, Prototypes, ES2024+</span></span>
+    <span class="ticker-item">[<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>].<span class="fn">map</span>(x =&gt; x * <span class="num">2</span>).<span class="fn">filter</span>(x =&gt; x &gt; <span class="num">2</span>)</span>
+    <span class="ticker-item"><span class="kw">class</span> <span class="fn">EventEmitter</span> { <span class="fn">on</span>(event, cb) { <span class="cm">/* Observer pattern */</span> } }</span>
+    <span class="ticker-item"><span class="kw">const</span> { <span class="var">name</span>, ...rest } = <span class="var">user</span> <span class="cm">// Destructuring + spread</span></span>
+    <span class="ticker-item"><span class="kw">function</span>* <span class="fn">generator</span>() { <span class="kw">yield</span> <span class="num">42</span>; <span class="kw">yield</span> <span class="num">100</span>; }</span>
+    <span class="ticker-item"><span class="cm">// Phase 1 → 5: Beginner to Expert</span></span>
+  </div>
+</div>
+
+<!-- ROADMAP OVERVIEW -->
+<section id="roadmap">
+  <div class="section-wrap">
+    <p class="section-eyebrow fade-in">// The path</p>
+    <h2 class="section-title fade-in">Your learning roadmap</h2>
+    <p class="section-desc fade-in">Five carefully sequenced phases. Each builds on the last — no shortcuts, no gaps.</p>
+
+    <div class="features-grid fade-in">
+      <div class="feature-card">
+        <div class="feat-icon" style="background:rgba(247,201,72,0.12);">🌱</div>
+        <div class="feat-title">Phase 1 — Foundations</div>
+        <div class="feat-desc">Variables, data types, control flow, functions, arrays, and objects. Build your mental model from scratch.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon" style="background:rgba(78,205,196,0.12);">⚡</div>
+        <div class="feat-title">Phase 2 — Core JS & DOM</div>
+        <div class="feat-desc">ES6+ syntax, array methods, scope, DOM manipulation, and event handling. Write real interactive pages.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon" style="background:rgba(167,139,250,0.12);">🔗</div>
+        <div class="feat-title">Phase 3 — Async & OOP</div>
+        <div class="feat-desc">Promises, async/await, Fetch API, classes, closures, modules. Consume APIs and design robust systems.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon" style="background:rgba(255,107,107,0.12);">🏗️</div>
+        <div class="feat-title">Phase 4 — Patterns & Tools</div>
+        <div class="feat-desc">Design patterns, functional programming, testing with Jest, TypeScript, bundlers, and Web Workers.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon" style="background:rgba(107,203,119,0.12);">🧬</div>
+        <div class="feat-title">Phase 5 — Expert Mastery</div>
+        <div class="feat-desc">V8 internals, meta-programming with Proxy, WebAssembly, security, AST transforms, and runtime environments.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon" style="background:rgba(247,201,72,0.08);">🛠️</div>
+        <div class="feat-title">12+ Real Projects</div>
+        <div class="feat-desc">Every phase ends with hands-on builds — from a quiz app to a custom JS framework. Apply what you learn.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FULL CURRICULUM -->
+<section id="curriculum" class="roadmap">
+  <div class="section-wrap">
+    <p class="section-eyebrow fade-in">// The curriculum</p>
+    <h2 class="section-title fade-in">Phase-by-phase breakdown</h2>
+    <p class="section-desc fade-in">Click any phase to expand topics, videos, and projects.</p>
+
+    <div class="phases-grid fade-in">
+
+      <!-- PHASE 1 -->
+      <div class="phase-row" onclick="togglePhase(this)">
+        <div class="phase-sidebar">
+          <span class="phase-num">PHASE 01</span>
+          <span class="phase-name">Foundations of JavaScript</span>
+          <span class="phase-duration">⏱ 3–4 weeks</span>
+          <span class="phase-level-badge" style="background:rgba(247,201,72,0.12);color:#f7c948;">Beginner</span>
+          <div class="phase-progress">
+            <div class="phase-progress-fill" style="width:20%;background:#f7c948;"></div>
+          </div>
+        </div>
+        <div class="phase-main">
+          <div class="phase-summary">
+            <p class="phase-tagline">Start from zero. Learn the building blocks every JS developer uses daily — variables, loops, functions, and objects.</p>
+            <div class="phase-toggle">+</div>
+          </div>
+          <div class="phase-details">
+            <div class="detail-label">Topics</div>
+            <div class="topics-wrap">
+              <span class="topic-chip">What is JavaScript?</span>
+              <span class="topic-chip">Variables (var/let/const)</span>
+              <span class="topic-chip">Data types</span>
+              <span class="topic-chip">Operators</span>
+              <span class="topic-chip">if / else / switch</span>
+              <span class="topic-chip">Loops (for, while, for...of)</span>
+              <span class="topic-chip">Functions & return values</span>
+              <span class="topic-chip">Arrays basics</span>
+              <span class="topic-chip">Objects basics</span>
+              <span class="topic-chip">typeof & type coercion</span>
+            </div>
+            <div class="detail-label">Recommended Videos</div>
+            <div class="video-list">
+              <a class="video-link" href="https://www.youtube.com/watch?v=W6NZfCO5SIk" target="_blank">
+                <div class="vl-icon"><div class="play-btn"></div></div>
+                <div class="vl-text"><div class="vt">JavaScript in 1 Hour — Programming with Mosh</div><div class="vm">Perfect first video · 1 hr · YouTube</div></div>
+              </a>
+              <a class="video-link" href="https://www.youtube.com/watch?v=PkZNo7MFNFg" target="_blank">
+                <div class="vl-icon"><div class="play-btn"></div></div>
+                <div class="vl-text"><div class="vt">Learn JavaScript — Full Beginner Course (freeCodeCamp)</div><div class="vm">3 hr 26 min · YouTube</div></div>
+              </a>
+              <a class="video-link" href="https://javascript.info" target="_blank">
+                <div class="vl-icon"><div class="play-btn"></div></div>
+                <div class="vl-text"><div class="vt">The Modern JavaScript Tutorial — javascript.info</div><div class="vm">Best free written reference · javascript.info</div></div>
+              </a>
+            </div>
+            <div class="detail-label">Build Projects</div>
+            <div class="projects-row">
+              <span class="project-chip">Temperature converter</span>
+              <span class="project-chip">Simple quiz app</span>
+              <span class="project-chip">Console to-do list</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 2 -->
+      <div class="phase-row" onclick="togglePhase(this)">
+        <div class="phase-sidebar">
+          <span class="phase-num">PHASE 02</span>
+          <span class="phase-name">Core JS & the DOM</span>
+          <span class="phase-duration">⏱ 4–6 weeks</span>
+          <span class="phase-level-badge" style="background:rgba(78,205,196,0.12);color:#4ecdc4;">Elementary</span>
+          <div class="phase-progress">
+            <div class="phase-progress-fill" style="width:40%;background:#4ecdc4;"></div>
+          </div>
+        </div>
+        <div class="phase-main">
+          <div class="phase-summary">
+            <p class="phase-tagline">Learn modern ES6+ features and bring your code to life in the browser — selecting elements, listening for events, updating the UI dynamically.</p>
+            <div class="phase-toggle">+</div>
+          </div>
+          <div class="phase-details">
+            <div class="detail-label">Topics</div>
+            <div class="topics-wrap">
+              <span class="topic-chip">Scope & hoisting</span>
+              <span class="topic-chip">Arrow functions</span>
+              <span class="topic-chip">map / filter / reduce</span>
+              <span class="topic-chip">Destructuring</span>
+              <span class="topic-chip">Spread & rest (...)</span>
+              <span class="topic-chip">Template literals</span>
+              <span class="topic-chip">DOM manipulation</span>
+              <span class="topic-chip">addEventListener</span>
+              <span class="topic-chip">Event delegation</span>
+              <span class="topic-chip">Error handling (try/catch)</span>
+            </div>
+            <div class="detail-label">Recommended Videos</div>
+            <div class="video-list">
+              <a class="video-link" href="https://www.youtube.com/watch?v=hdI2bqOjy3c" target="_blank">
+                <div class="vl-icon"><div class="play-btn"></div></div>
+                <div class="vl-text"><div class="vt">JavaScript Crash Course — Traversy Media</div><div class="vm">ES6+ features · 1 hr 40 min · YouTube</div></div>
+              </a>
+              <a class="video-link" href="https://www.youtube.com/watch?v=y17RuWkWdn8" target="_blank">
+                <div class="vl-icon"><div class="play-btn"></div></div>
+                <div class="vl-text"><div class="vt">JavaScript DOM Manipulation — freeCodeCamp</div><div class="vm">DOM + events deep dive · 3 hr · YouTube</div></div>
+              </a>
+              <a class="video-link" href="https://www.youtube.com/watch?v=aXOChLn5ZdQ" target="_blank">
+                <div class="vl-icon"><div class="play-btn"></div></div>
+                <div class="vl-text"><div class="vt">Array Methods You Must Know — Fireship</div><div class="vm">map, filter, reduce · 11 min · YouTube</div></div>
+              </a>
+            </div>
+            <div class="detail-label">Build Projects</div>
+            <div class="projects-row">
+              <span class="project-chip">Interactive to-do app</span>
+              <span class="project-chip">Expense tracker</span>
+              <span class="project-chip">Color palette generator</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 3 -->
+      <div class="phase-row" onclick="togglePhase(this)">
+        <div class="phase-sidebar">
+          <span class="phase-num">PHASE 03</span>
+          <span class="phase-name">Async, OOP & APIs</span>
+          <span class="phase-duration">⏱ 5–7 weeks</span>
+          <span class="phase-level-badge" style="background:rgba(167,139,250,0.12);color:#a78bfa;">Intermediate</span>
+          <div class="phase-progress">
+            <div class="phase-progress-fill" style="width:60%;background:#a78bfa;"></div>
+          </div>
+        </div>
+        <div class="phase-main">
+          <div class="phase-summary">
+            <p class="phase-tagline">Conquer asynchronous JavaScript — promises, async/await — and real REST APIs. Design with classes, closures, and modules.</p>
+            <div class="phase-toggle">+</div>
+          </div>
+          <div class="phase-details">
+            <div class="detail-label">Topics</div>
+            <div class="topics-wrap">
+              <span class="topic-chip">Callbacks</span>
+              <span class="topic-chip">Promises (.then/.catch)</span>
+              <span class="topic-chip">Promise.all / race</span>
+              <span class="topic-chip">async / await</span>
+              <span class="topic-chip">Fetch API</span>
+              <span class="topic-chip">REST APIs & JSON</span>
+              <span class="topic-chip">OOP & Classes</span>
+              <span class="topic-chip">Inheritance</span>
+              <span class="topic-chip">Closures</span>
+              <span class="topic-chip">ES Modules (import/export)</span>
+              <span class="topic-chip">localStorage</span>
+            </div>
+            <div class="detail-label">Recommended Videos</div>
+            <div class="video-list">
+              <a class="video-link" href="https://www.youtube.com/watch?v=PoRJizFvM7s" target="_blank">
+                <div class="vl-icon"><div class="play-btn"></div></div>
+                <div class="vl-text"><div class="vt">Async JavaScript — Traversy Media</div><div class="vm">Callbacks → Promises → Async/Await · 24 min</div></div>
+              </a>
+              <a class="video-link" href="https://www.youtube.com/watch?v=Mus_vwhTCq0" target="_blank">
+                <div class="vl-icon"><div class="play-btn"></div></div>
+                <div class="vl-text"><div class="vt">Object Oriented JavaScript — freeCodeCamp</div><div class="vm">Classes + prototypes · 2 hr · YouTube</div></div>
+              </a>
+              <a class="video-link" href="https://www.youtube.com/watch?v=DHvZLI7Db8E" target="_blank">
+                <div class="vl-icon"><div class="play-btn"></div></div>
+                <div class="vl-text"><div class="vt">JavaScript Closures Explained — Fireship</div><div class="vm">Visual + concise · 6 min · YouTube</div></div>
+              </a>
+            </div>
+            <div class="detail-label">Build Projects</div>
+            <div class="projects-row">
+              <span class="project-chip">Weather app (OpenWeatherMap)</span>
+              <span class="project-chip">Movie search (OMDB API)</span>
+              <span class="project-chip">OOP bank account</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 4 -->
+      <div class="phase-row" onclick="togglePhase(this)">
+        <div class="phase-sidebar">
+          <span class="phase-num">PHASE 04</span>
+          <span class="phase-name">Patterns, Performance & Tooling</span>
+          <span class="phase-duration">⏱ 6–8 weeks</span>
+          <span class="phase-level-badge" style="background:rgba(255,107,107,0.12);color:#ff6b6b;">Advanced</span>
+          <div class="phase-progress">
+            <div class="phase-progress-fill" style="width:80%;background:#ff6b6b;"></div>
+          </div>
+        </div>
+        <div class="phase-main">
+          <div class="phase-summary">
+            <p class="phase-tagline">Write professional-grade code. Learn the event loop deeply, apply design patterns, test with Jest, and embrace TypeScript and modern build tools.</p>
+            <div class="phase-toggle">+</div>
+          </div>
+          <div class="phase-details">
+            <div class="detail-label">Topics</div>
+            <div class="topics-wrap">
+              <span class="topic-chip">Event loop & call stack</span>
+              <span class="topic-chip">Microtasks & macrotasks</span>
+              <span class="topic-chip">Design patterns</span>
+              <span class="topic-chip">Functional programming</span>
+              <span class="topic-chip">Currying & composition</span>
+              <span class="topic-chip">Generators & iterators</span>
+              <span class="topic-chip">WeakMap / WeakSet</span>
+              <span class="topic-chip">Web Workers</span>
+              <span class="topic-chip">Service Workers</span>
+              <span class="topic-chip">Testing with Jest</span>
+              <span class="topic-chip">Vite / Webpack</span>
+              <span class="topic-chip">TypeScript basics</span>
+            </div>
+            <div class="detail-label">Recommended Videos</div>
+            <div class="video-list">
+              <a class="video-link" href="https://www.youtube.com/watch?v=8aGhZQkoFbQ" target="_blank">
+                <div class="vl-icon"><div class="play-btn"></div></div>
+                <div class="vl-text"><div class="vt">What the heck is the event loop? — Philip Roberts (JSConf)</div><div class="vm">The definitive explanation · 26 min · YouTube</div></div>
+              </a>
+              <a class="video-link" href="https://www.youtube.com/watch?v=jnME98ckDbQ" target="_blank">
+                <div class="vl-icon"><div class="play-btn"></div></div>
+                <div class="vl-text"><div class="vt">JavaScript Design Patterns — Fireship</div><div class="vm">10 essential patterns · 12 min · YouTube</div></div>
+              </a>
+              <a class="video-link" href="https://www.youtube.com/watch?v=2pL28CcEijU" target="_blank">
+                <div class="vl-icon"><div class="play-btn"></div></div>
+                <div class="vl-text"><div class="vt">TypeScript Tutorial — Programming with Mosh</div><div class="vm">Best TypeScript intro · 1 hr 34 min</div></div>
+              </a>
+            </div>
+            <div class="detail-label">Build Projects</div>
+            <div class="projects-row">
+              <span class="project-chip">Real-time chat (WebSockets)</span>
+              <span class="project-chip">Jest-tested utility library</span>
+              <span class="project-chip">Infinite scroll with IndexedDB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 5 -->
+      <div class="phase-row" onclick="togglePhase(this)">
+        <div class="phase-sidebar">
+          <span class="phase-num">PHASE 05</span>
+          <span class="phase-name">Expert-Level Mastery</span>
+          <span class="phase-duration">⏱ Ongoing</span>
+          <span class="phase-level-badge" style="background:rgba(107,203,119,0.12);color:#6bcb77;">Expert</span>
+          <div class="phase-progress">
+            <div class="phase-progress-fill" style="width:100%;background:#6bcb77;"></div>
+          </div>
+        </div>
+        <div class="phase-main">
+          <div class="phase-summary">
+            <p class="phase-tagline">Understand how JavaScript actually runs. Manipulate ASTs, write Babel plugins, work with WebAssembly, and reason about security and performance at the deepest level.</p>
+            <div class="phase-toggle">+</div>
+          </div>
+          <div class="phase-details">
+            <div class="detail-label">Topics</div>
+            <div class="topics-wrap">
+              <span class="topic-chip">V8 engine internals</span>
+              <span class="topic-chip">JIT compilation</span>
+              <span class="topic-chip">Proxy & Reflect</span>
+              <span class="topic-chip">Property descriptors</span>
+              <span class="topic-chip">Memory management</span>
+              <span class="topic-chip">Garbage collection</span>
+              <span class="topic-chip">Advanced async patterns</span>
+              <span class="topic-chip">AbortController</span>
+              <span class="topic-chip">WebAssembly interop</span>
+              <span class="topic-chip">XSS / CSRF / CSP</span>
+              <span class="topic-chip">AST manipulation</span>
+              <span class="topic-chip">Babel plugins</span>
+              <span class="topic-chip">Node.js / Deno / Bun</span>
+            </div>
+            <div class="detail-label">Recommended Videos & Books</div>
+            <div class="video-list">
+              <a class="video-link" href="https://www.youtube.com/watch?v=p-iiEDtpy6I" target="_blank">
+                <div class="vl-icon"><div class="play-btn"></div></div>
+                <div class="vl-text"><div class="vt">JavaScript Engines — How V8 Works (JSConf EU)</div><div class="vm">Parsing + JIT compilation · 25 min · YouTube</div></div>
+              </a>
+              <a class="video-link" href="https://www.youtube.com/watch?v=AqgVLYpBWG8" target="_blank">
+                <div class="vl-icon"><div class="play-btn"></div></div>
+                <div class="vl-text"><div class="vt">Proxy & Reflect Meta-programming — Fun Fun Function</div><div class="vm">Reactive systems & validation · 18 min</div></div>
+              </a>
+              <a class="video-link" href="https://eloquentjavascript.net" target="_blank">
+                <div class="vl-icon"><div class="play-btn"></div></div>
+                <div class="vl-text"><div class="vt">Eloquent JavaScript — Marijn Haverbeke (free)</div><div class="vm">Gold-standard book · Chapters 11–21 · eloquentjavascript.net</div></div>
+              </a>
+              <a class="video-link" href="https://github.com/getify/You-Dont-Know-JS" target="_blank">
+                <div class="vl-icon"><div class="play-btn"></div></div>
+                <div class="vl-text"><div class="vt">You Don't Know JS — Kyle Simpson (free on GitHub)</div><div class="vm">Deepest JS internals book ever written</div></div>
+              </a>
+            </div>
+            <div class="detail-label">Build Projects</div>
+            <div class="projects-row">
+              <span class="project-chip">Build a JS framework from scratch</span>
+              <span class="project-chip">Write a Babel plugin</span>
+              <span class="project-chip">WebAssembly integration (Rust)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CODE SHOWCASE -->
+<section id="code" class="code-section">
+  <div class="section-wrap">
+    <p class="section-eyebrow fade-in">// Code samples</p>
+    <h2 class="section-title fade-in">See the progression</h2>
+    <p class="section-desc fade-in">From a simple function on day one to async API calls and reactive patterns as you advance.</p>
+
+    <div class="code-showcase fade-in">
+      <div>
+        <div class="code-panel" style="margin-bottom:1.5rem;">
+          <div class="code-header">
+            <div class="code-dot" style="background:#ff5f57;"></div>
+            <div class="code-dot" style="background:#ffbd2e;"></div>
+            <div class="code-dot" style="background:#28c840;"></div>
+            <span class="code-filename">phase1-basics.js</span>
+          </div>
+          <div class="code-body"><span class="cm">// Phase 1 — Variables & functions</span>
+<span class="kw">const</span> <span class="var">name</span> <span class="op">=</span> <span class="str">"Chitta"</span>;
+<span class="kw">const</span> <span class="var">year</span> <span class="op">=</span> <span class="num">2025</span>;
+
+<span class="kw">function</span> <span class="fn">greet</span>(<span class="var">person</span>) {
+  <span class="kw">if</span> (<span class="var">person</span>) {
+    <span class="kw">return</span> <span class="str">`Hello, ${<span class="var">person</span>}! 👋`</span>;
+  }
+  <span class="kw">return</span> <span class="str">"Hello, World!"</span>;
+}
+
+<span class="kw">const</span> <span class="var">scores</span> <span class="op">=</span> [<span class="num">85</span>, <span class="num">92</span>, <span class="num">78</span>, <span class="num">96</span>];
+<span class="kw">const</span> <span class="var">avg</span> <span class="op">=</span> <span class="var">scores</span>.<span class="fn">reduce</span>(
+  (<span class="var">a</span>, <span class="var">b</span>) <span class="op">=></span> <span class="var">a</span> <span class="op">+</span> <span class="var">b</span>, <span class="num">0</span>
+) <span class="op">/</span> <span class="var">scores</span>.length;
+
+console.<span class="fn">log</span>(<span class="fn">greet</span>(<span class="var">name</span>));
+console.<span class="fn">log</span>(<span class="str">`Average: ${<span class="var">avg</span>}`</span>);</div>
+        </div>
+
+        <div class="code-panel">
+          <div class="code-header">
+            <div class="code-dot" style="background:#ff5f57;"></div>
+            <div class="code-dot" style="background:#ffbd2e;"></div>
+            <div class="code-dot" style="background:#28c840;"></div>
+            <span class="code-filename">phase3-async.js</span>
+          </div>
+          <div class="code-body"><span class="cm">// Phase 3 — Async/Await + Fetch</span>
+<span class="kw">const</span> <span class="fn">getWeather</span> <span class="op">=</span> <span class="kw">async</span> (<span class="var">city</span>) <span class="op">=></span> {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> <span class="var">url</span> <span class="op">=</span> <span class="str">`https://api.weather.dev/${<span class="var">city</span>}`</span>;
+    <span class="kw">const</span> <span class="var">res</span> <span class="op">=</span> <span class="kw">await</span> <span class="fn">fetch</span>(<span class="var">url</span>);
+    <span class="kw">const</span> <span class="var">data</span> <span class="op">=</span> <span class="kw">await</span> <span class="var">res</span>.<span class="fn">json</span>();
+
+    <span class="kw">return</span> {
+      city: <span class="var">data</span>.name,
+      temp: <span class="var">data</span>.main.temp,
+      desc: <span class="var">data</span>.weather[<span class="num">0</span>].description
+    };
+  } <span class="kw">catch</span> (<span class="var">err</span>) {
+    console.<span class="fn">error</span>(<span class="str">"Fetch failed:"</span>, <span class="var">err</span>);
+  }
+};
+
+<span class="fn">getWeather</span>(<span class="str">"Bengaluru"</span>).<span class="fn">then</span>(console.<span class="fn">log</span>);</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="code-panel" style="margin-bottom:1.5rem;">
+          <div class="code-header">
+            <div class="code-dot" style="background:#ff5f57;"></div>
+            <div class="code-dot" style="background:#ffbd2e;"></div>
+            <div class="code-dot" style="background:#28c840;"></div>
+            <span class="code-filename">phase4-pattern.js</span>
+          </div>
+          <div class="code-body"><span class="cm">// Phase 4 — Observer pattern</span>
+<span class="kw">class</span> <span class="fn">EventEmitter</span> {
+  <span class="var">#listeners</span> <span class="op">=</span> <span class="kw">new</span> Map();
+
+  <span class="fn">on</span>(<span class="var">event</span>, <span class="var">cb</span>) {
+    <span class="kw">if</span> (!<span class="kw">this</span>.<span class="var">#listeners</span>.<span class="fn">has</span>(<span class="var">event</span>)) {
+      <span class="kw">this</span>.<span class="var">#listeners</span>.<span class="fn">set</span>(<span class="var">event</span>, []);
+    }
+    <span class="kw">this</span>.<span class="var">#listeners</span>.<span class="fn">get</span>(<span class="var">event</span>).<span class="fn">push</span>(<span class="var">cb</span>);
+    <span class="kw">return this</span>;
+  }
+
+  <span class="fn">emit</span>(<span class="var">event</span>, ...<span class="var">args</span>) {
+    <span class="kw">this</span>.<span class="var">#listeners</span>
+      .<span class="fn">get</span>(<span class="var">event</span>)?.<span class="fn">forEach</span>(<span class="var">cb</span> <span class="op">=></span> <span class="fn">cb</span>(...<span class="var">args</span>));
+  }
+}
+
+<span class="kw">const</span> <span class="var">bus</span> <span class="op">=</span> <span class="kw">new</span> <span class="fn">EventEmitter</span>();
+<span class="var">bus</span>.<span class="fn">on</span>(<span class="str">"data"</span>, console.<span class="fn">log</span>);
+<span class="var">bus</span>.<span class="fn">emit</span>(<span class="str">"data"</span>, { <span class="var">user</span>: <span class="str">"Chitta"</span> });</div>
+        </div>
+
+        <div class="code-panel">
+          <div class="code-header">
+            <div class="code-dot" style="background:#ff5f57;"></div>
+            <div class="code-dot" style="background:#ffbd2e;"></div>
+            <div class="code-dot" style="background:#28c840;"></div>
+            <span class="code-filename">phase5-proxy.js</span>
+          </div>
+          <div class="code-body"><span class="cm">// Phase 5 — Meta-programming</span>
+<span class="kw">function</span> <span class="fn">reactive</span>(<span class="var">obj</span>, <span class="var">onChange</span>) {
+  <span class="kw">return new</span> <span class="fn">Proxy</span>(<span class="var">obj</span>, {
+    <span class="fn">set</span>(<span class="var">target</span>, <span class="var">key</span>, <span class="var">value</span>) {
+      <span class="kw">const</span> <span class="var">old</span> <span class="op">=</span> <span class="var">target</span>[<span class="var">key</span>];
+      <span class="var">target</span>[<span class="var">key</span>] <span class="op">=</span> <span class="var">value</span>;
+      <span class="kw">if</span> (<span class="var">old</span> <span class="op">!==</span> <span class="var">value</span>) {
+        <span class="fn">onChange</span>({ <span class="var">key</span>, <span class="var">old</span>, <span class="var">value</span> });
+      }
+      <span class="kw">return true</span>;
+    }
+  });
+}
+
+<span class="kw">const</span> <span class="var">state</span> <span class="op">=</span> <span class="fn">reactive</span>(
+  { <span class="var">count</span>: <span class="num">0</span> },
+  <span class="var">diff</span> <span class="op">=></span> console.<span class="fn">log</span>(<span class="str">"Changed:"</span>, <span class="var">diff</span>)
+);
+<span class="var">state</span>.count<span class="op">++</span>; <span class="cm">// → {key:'count', old:0, value:1}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<section id="resources">
+  <div class="section-wrap">
+    <p class="section-eyebrow fade-in">// Free resources</p>
+    <h2 class="section-title fade-in">Everything you need, for free</h2>
+    <p class="section-desc fade-in">Carefully curated books, sites, and channels alongside every phase of your journey.</p>
+
+    <div class="resources-grid fade-in">
+      <a class="res-card" href="https://javascript.info" target="_blank">
+        <div class="res-type">📖 Website</div>
+        <div class="res-name">javascript.info</div>
+        <div class="res-desc">The best free JS reference. Covers every concept from basics to advanced with clear examples and exercises.</div>
+      </a>
+      <a class="res-card" href="https://eloquentjavascript.net" target="_blank">
+        <div class="res-type">📚 Book (free)</div>
+        <div class="res-name">Eloquent JavaScript</div>
+        <div class="res-desc">Marijn Haverbeke's gold-standard JavaScript book. Full text free online. Essential reading for Phases 3–5.</div>
+      </a>
+      <a class="res-card" href="https://github.com/getify/You-Dont-Know-JS" target="_blank">
+        <div class="res-type">📚 Book Series (free)</div>
+        <div class="res-name">You Don't Know JS</div>
+        <div class="res-desc">Kyle Simpson's 6-book deep dive into JS internals. The most thorough coverage of scope, closures, and types.</div>
+      </a>
+      <a class="res-card" href="https://www.youtube.com/@Fireship" target="_blank">
+        <div class="res-type">▶ YouTube Channel</div>
+        <div class="res-name">Fireship</div>
+        <div class="res-desc">Fast, dense, entertaining. Best for concept overviews and modern JS/TS/framework comparisons.</div>
+      </a>
+      <a class="res-card" href="https://www.youtube.com/@TraversyMedia" target="_blank">
+        <div class="res-type">▶ YouTube Channel</div>
+        <div class="res-name">Traversy Media</div>
+        <div class="res-desc">Thorough crash courses and project tutorials. Great for Phases 1–3 where you need depth over speed.</div>
+      </a>
+      <a class="res-card" href="https://www.freecodecamp.org" target="_blank">
+        <div class="res-type">🖥 Interactive Platform</div>
+        <div class="res-name">freeCodeCamp</div>
+        <div class="res-desc">Free, structured curriculum with certifications. The JavaScript Algorithms and Data Structures course is excellent.</div>
+      </a>
+      <a class="res-card" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
+        <div class="res-type">📄 Docs</div>
+        <div class="res-name">MDN Web Docs</div>
+        <div class="res-desc">The official, most authoritative JavaScript reference. Every built-in method, API, and Web feature documented in detail.</div>
+      </a>
+      <a class="res-card" href="https://www.typescriptlang.org/docs/" target="_blank">
+        <div class="res-type">📄 Docs</div>
+        <div class="res-name">TypeScript Handbook</div>
+        <div class="res-desc">The official TypeScript docs. After Phase 4 you'll want to adopt typed JavaScript — start here.</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">JavaScript <span class="accent">Tutorial</span></div>
+  <div style="margin-bottom:0.75rem;">
+    <span style="font-family:var(--display);font-size:32px;font-weight:800;color:var(--accent);letter-spacing:-0.03em;">Chitta</span>
+  </div>
+  <p class="footer-sub">Crafted with passion &amp; expertise</p>
+  <ul class="footer-links">
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#curriculum">Curriculum</a></li>
+    <li><a href="#code">Code</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+  <p class="footer-copy">// Happy learning. console.log("You got this! 🚀")</p>
+</footer>
+
+<script>
+  function togglePhase(row) {
+    const isOpen = row.classList.contains('open');
+    document.querySelectorAll('.phase-row.open').forEach(r => {
+      r.classList.remove('open');
+      r.querySelector('.phase-toggle').textContent = '+';
+    });
+    if (!isOpen) {
+      row.classList.add('open');
+      row.querySelector('.phase-toggle').textContent = '×';
+    }
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
