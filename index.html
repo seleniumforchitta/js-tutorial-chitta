@@ -502,9 +502,21 @@
     padding: 5px 10px;
     border-radius: 6px;
     border: 1px solid var(--border);
-    transition: border-color 0.15s, color 0.15s;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
   }
-  .topic-chip:hover { border-color: var(--accent); color: var(--accent); }
+  .topic-chip::after {
+    content: '↗';
+    font-size: 10px;
+    opacity: 0.5;
+    transition: opacity 0.15s;
+  }
+  .topic-chip:hover { border-color: var(--accent); color: var(--accent); background: rgba(247,201,72,0.06); }
+  .topic-chip:hover::after { opacity: 1; }
 
   .detail-label {
     font-size: 11px;
@@ -890,31 +902,31 @@
     <p class="section-desc fade-in">Five carefully sequenced phases. Each builds on the last — no shortcuts, no gaps.</p>
 
     <div class="features-grid fade-in">
-      <div class="feature-card">
+      <a class="feature-card" href="#phase-1-anchor" style="text-decoration:none;display:block;" onclick="scrollToPhase(0)">
         <div class="feat-icon" style="background:rgba(247,201,72,0.12);">🌱</div>
-        <div class="feat-title">Phase 1 — Foundations</div>
+        <div class="feat-title">Phase 1 — Foundations <span style="font-size:13px;color:var(--accent);">→</span></div>
         <div class="feat-desc">Variables, data types, control flow, functions, arrays, and objects. Build your mental model from scratch.</div>
-      </div>
-      <div class="feature-card">
+      </a>
+      <a class="feature-card" href="#phase-2-anchor" style="text-decoration:none;display:block;" onclick="scrollToPhase(1)">
         <div class="feat-icon" style="background:rgba(78,205,196,0.12);">⚡</div>
-        <div class="feat-title">Phase 2 — Core JS & DOM</div>
+        <div class="feat-title">Phase 2 — Core JS & DOM <span style="font-size:13px;color:var(--teal);">→</span></div>
         <div class="feat-desc">ES6+ syntax, array methods, scope, DOM manipulation, and event handling. Write real interactive pages.</div>
-      </div>
-      <div class="feature-card">
+      </a>
+      <a class="feature-card" href="#phase-3-anchor" style="text-decoration:none;display:block;" onclick="scrollToPhase(2)">
         <div class="feat-icon" style="background:rgba(167,139,250,0.12);">🔗</div>
-        <div class="feat-title">Phase 3 — Async & OOP</div>
+        <div class="feat-title">Phase 3 — Async & OOP <span style="font-size:13px;color:var(--purple);">→</span></div>
         <div class="feat-desc">Promises, async/await, Fetch API, classes, closures, modules. Consume APIs and design robust systems.</div>
-      </div>
-      <div class="feature-card">
+      </a>
+      <a class="feature-card" href="#phase-4-anchor" style="text-decoration:none;display:block;" onclick="scrollToPhase(3)">
         <div class="feat-icon" style="background:rgba(255,107,107,0.12);">🏗️</div>
-        <div class="feat-title">Phase 4 — Patterns & Tools</div>
+        <div class="feat-title">Phase 4 — Patterns & Tools <span style="font-size:13px;color:var(--coral);">→</span></div>
         <div class="feat-desc">Design patterns, functional programming, testing with Jest, TypeScript, bundlers, and Web Workers.</div>
-      </div>
-      <div class="feature-card">
+      </a>
+      <a class="feature-card" href="#phase-5-anchor" style="text-decoration:none;display:block;" onclick="scrollToPhase(4)">
         <div class="feat-icon" style="background:rgba(107,203,119,0.12);">🧬</div>
-        <div class="feat-title">Phase 5 — Expert Mastery</div>
+        <div class="feat-title">Phase 5 — Expert Mastery <span style="font-size:13px;color:var(--green);">→</span></div>
         <div class="feat-desc">V8 internals, meta-programming with Proxy, WebAssembly, security, AST transforms, and runtime environments.</div>
-      </div>
+      </a>
       <div class="feature-card">
         <div class="feat-icon" style="background:rgba(247,201,72,0.08);">🛠️</div>
         <div class="feat-title">12+ Real Projects</div>
@@ -934,7 +946,7 @@
     <div class="phases-grid fade-in">
 
       <!-- PHASE 1 -->
-      <div class="phase-row" onclick="togglePhase(this)">
+      <div class="phase-row" id="phase-1-anchor" onclick="togglePhase(this)">
         <div class="phase-sidebar">
           <span class="phase-num">PHASE 01</span>
           <span class="phase-name">Foundations of JavaScript</span>
@@ -952,16 +964,16 @@
           <div class="phase-details">
             <div class="detail-label">Topics</div>
             <div class="topics-wrap">
-              <span class="topic-chip">What is JavaScript?</span>
-              <span class="topic-chip">Variables (var/let/const)</span>
-              <span class="topic-chip">Data types</span>
-              <span class="topic-chip">Operators</span>
-              <span class="topic-chip">if / else / switch</span>
-              <span class="topic-chip">Loops (for, while, for...of)</span>
-              <span class="topic-chip">Functions & return values</span>
-              <span class="topic-chip">Arrays basics</span>
-              <span class="topic-chip">Objects basics</span>
-              <span class="topic-chip">typeof & type coercion</span>
+              <a class="topic-chip" href="https://javascript.info/intro" target="_blank">What is JavaScript?</a>
+              <a class="topic-chip" href="https://javascript.info/variables" target="_blank">Variables (var/let/const)</a>
+              <a class="topic-chip" href="https://javascript.info/types" target="_blank">Data types</a>
+              <a class="topic-chip" href="https://javascript.info/operators" target="_blank">Operators</a>
+              <a class="topic-chip" href="https://javascript.info/ifelse" target="_blank">if / else / switch</a>
+              <a class="topic-chip" href="https://javascript.info/while-for" target="_blank">Loops (for, while, for...of)</a>
+              <a class="topic-chip" href="https://javascript.info/function-basics" target="_blank">Functions & return values</a>
+              <a class="topic-chip" href="https://javascript.info/array" target="_blank">Arrays basics</a>
+              <a class="topic-chip" href="https://javascript.info/object" target="_blank">Objects basics</a>
+              <a class="topic-chip" href="https://javascript.info/type-conversions" target="_blank">typeof & type coercion</a>
             </div>
             <div class="detail-label">Recommended Videos</div>
             <div class="video-list">
@@ -989,7 +1001,7 @@
       </div>
 
       <!-- PHASE 2 -->
-      <div class="phase-row" onclick="togglePhase(this)">
+      <div class="phase-row" id="phase-2-anchor" onclick="togglePhase(this)">
         <div class="phase-sidebar">
           <span class="phase-num">PHASE 02</span>
           <span class="phase-name">Core JS & the DOM</span>
@@ -1007,16 +1019,16 @@
           <div class="phase-details">
             <div class="detail-label">Topics</div>
             <div class="topics-wrap">
-              <span class="topic-chip">Scope & hoisting</span>
-              <span class="topic-chip">Arrow functions</span>
-              <span class="topic-chip">map / filter / reduce</span>
-              <span class="topic-chip">Destructuring</span>
-              <span class="topic-chip">Spread & rest (...)</span>
-              <span class="topic-chip">Template literals</span>
-              <span class="topic-chip">DOM manipulation</span>
-              <span class="topic-chip">addEventListener</span>
-              <span class="topic-chip">Event delegation</span>
-              <span class="topic-chip">Error handling (try/catch)</span>
+              <a class="topic-chip" href="https://javascript.info/closure#lexical-environment" target="_blank">Scope & hoisting</a>
+              <a class="topic-chip" href="https://javascript.info/arrow-functions-basics" target="_blank">Arrow functions</a>
+              <a class="topic-chip" href="https://javascript.info/array-methods" target="_blank">map / filter / reduce</a>
+              <a class="topic-chip" href="https://javascript.info/destructuring-assignment" target="_blank">Destructuring</a>
+              <a class="topic-chip" href="https://javascript.info/rest-parameters-spread" target="_blank">Spread & rest (...)</a>
+              <a class="topic-chip" href="https://javascript.info/string#template-literals" target="_blank">Template literals</a>
+              <a class="topic-chip" href="https://javascript.info/dom-nodes" target="_blank">DOM manipulation</a>
+              <a class="topic-chip" href="https://javascript.info/introduction-browser-events" target="_blank">addEventListener</a>
+              <a class="topic-chip" href="https://javascript.info/event-delegation" target="_blank">Event delegation</a>
+              <a class="topic-chip" href="https://javascript.info/try-catch" target="_blank">Error handling (try/catch)</a>
             </div>
             <div class="detail-label">Recommended Videos</div>
             <div class="video-list">
@@ -1044,7 +1056,7 @@
       </div>
 
       <!-- PHASE 3 -->
-      <div class="phase-row" onclick="togglePhase(this)">
+      <div class="phase-row" id="phase-3-anchor" onclick="togglePhase(this)">
         <div class="phase-sidebar">
           <span class="phase-num">PHASE 03</span>
           <span class="phase-name">Async, OOP & APIs</span>
@@ -1062,17 +1074,17 @@
           <div class="phase-details">
             <div class="detail-label">Topics</div>
             <div class="topics-wrap">
-              <span class="topic-chip">Callbacks</span>
-              <span class="topic-chip">Promises (.then/.catch)</span>
-              <span class="topic-chip">Promise.all / race</span>
-              <span class="topic-chip">async / await</span>
-              <span class="topic-chip">Fetch API</span>
-              <span class="topic-chip">REST APIs & JSON</span>
-              <span class="topic-chip">OOP & Classes</span>
-              <span class="topic-chip">Inheritance</span>
-              <span class="topic-chip">Closures</span>
-              <span class="topic-chip">ES Modules (import/export)</span>
-              <span class="topic-chip">localStorage</span>
+              <a class="topic-chip" href="https://javascript.info/callbacks" target="_blank">Callbacks</a>
+              <a class="topic-chip" href="https://javascript.info/promise-basics" target="_blank">Promises (.then/.catch)</a>
+              <a class="topic-chip" href="https://javascript.info/promise-api" target="_blank">Promise.all / race</a>
+              <a class="topic-chip" href="https://javascript.info/async-await" target="_blank">async / await</a>
+              <a class="topic-chip" href="https://javascript.info/fetch" target="_blank">Fetch API</a>
+              <a class="topic-chip" href="https://javascript.info/fetch-api" target="_blank">REST APIs & JSON</a>
+              <a class="topic-chip" href="https://javascript.info/classes" target="_blank">OOP & Classes</a>
+              <a class="topic-chip" href="https://javascript.info/class-inheritance" target="_blank">Inheritance</a>
+              <a class="topic-chip" href="https://javascript.info/closure" target="_blank">Closures</a>
+              <a class="topic-chip" href="https://javascript.info/import-export" target="_blank">ES Modules (import/export)</a>
+              <a class="topic-chip" href="https://javascript.info/localstorage" target="_blank">localStorage</a>
             </div>
             <div class="detail-label">Recommended Videos</div>
             <div class="video-list">
@@ -1100,7 +1112,7 @@
       </div>
 
       <!-- PHASE 4 -->
-      <div class="phase-row" onclick="togglePhase(this)">
+      <div class="phase-row" id="phase-4-anchor" onclick="togglePhase(this)">
         <div class="phase-sidebar">
           <span class="phase-num">PHASE 04</span>
           <span class="phase-name">Patterns, Performance & Tooling</span>
@@ -1118,18 +1130,18 @@
           <div class="phase-details">
             <div class="detail-label">Topics</div>
             <div class="topics-wrap">
-              <span class="topic-chip">Event loop & call stack</span>
-              <span class="topic-chip">Microtasks & macrotasks</span>
-              <span class="topic-chip">Design patterns</span>
-              <span class="topic-chip">Functional programming</span>
-              <span class="topic-chip">Currying & composition</span>
-              <span class="topic-chip">Generators & iterators</span>
-              <span class="topic-chip">WeakMap / WeakSet</span>
-              <span class="topic-chip">Web Workers</span>
-              <span class="topic-chip">Service Workers</span>
-              <span class="topic-chip">Testing with Jest</span>
-              <span class="topic-chip">Vite / Webpack</span>
-              <span class="topic-chip">TypeScript basics</span>
+              <a class="topic-chip" href="https://javascript.info/event-loop" target="_blank">Event loop & call stack</a>
+              <a class="topic-chip" href="https://javascript.info/microtask-queue" target="_blank">Microtasks & macrotasks</a>
+              <a class="topic-chip" href="https://www.patterns.dev/vanilla/observer-pattern/" target="_blank">Design patterns</a>
+              <a class="topic-chip" href="https://javascript.info/currying-partials" target="_blank">Functional programming</a>
+              <a class="topic-chip" href="https://javascript.info/currying-partials" target="_blank">Currying & composition</a>
+              <a class="topic-chip" href="https://javascript.info/generators" target="_blank">Generators & iterators</a>
+              <a class="topic-chip" href="https://javascript.info/weakmap-weakset" target="_blank">WeakMap / WeakSet</a>
+              <a class="topic-chip" href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers" target="_blank">Web Workers</a>
+              <a class="topic-chip" href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API" target="_blank">Service Workers</a>
+              <a class="topic-chip" href="https://jestjs.io/docs/getting-started" target="_blank">Testing with Jest</a>
+              <a class="topic-chip" href="https://vitejs.dev/guide/" target="_blank">Vite / Webpack</a>
+              <a class="topic-chip" href="https://www.typescriptlang.org/docs/handbook/2/basic-types.html" target="_blank">TypeScript basics</a>
             </div>
             <div class="detail-label">Recommended Videos</div>
             <div class="video-list">
@@ -1157,7 +1169,7 @@
       </div>
 
       <!-- PHASE 5 -->
-      <div class="phase-row" onclick="togglePhase(this)">
+      <div class="phase-row" id="phase-5-anchor" onclick="togglePhase(this)">
         <div class="phase-sidebar">
           <span class="phase-num">PHASE 05</span>
           <span class="phase-name">Expert-Level Mastery</span>
@@ -1175,19 +1187,19 @@
           <div class="phase-details">
             <div class="detail-label">Topics</div>
             <div class="topics-wrap">
-              <span class="topic-chip">V8 engine internals</span>
-              <span class="topic-chip">JIT compilation</span>
-              <span class="topic-chip">Proxy & Reflect</span>
-              <span class="topic-chip">Property descriptors</span>
-              <span class="topic-chip">Memory management</span>
-              <span class="topic-chip">Garbage collection</span>
-              <span class="topic-chip">Advanced async patterns</span>
-              <span class="topic-chip">AbortController</span>
-              <span class="topic-chip">WebAssembly interop</span>
-              <span class="topic-chip">XSS / CSRF / CSP</span>
-              <span class="topic-chip">AST manipulation</span>
-              <span class="topic-chip">Babel plugins</span>
-              <span class="topic-chip">Node.js / Deno / Bun</span>
+              <a class="topic-chip" href="https://v8.dev/docs" target="_blank">V8 engine internals</a>
+              <a class="topic-chip" href="https://v8.dev/blog/turbofan-jit" target="_blank">JIT compilation</a>
+              <a class="topic-chip" href="https://javascript.info/proxy" target="_blank">Proxy & Reflect</a>
+              <a class="topic-chip" href="https://javascript.info/property-descriptors" target="_blank">Property descriptors</a>
+              <a class="topic-chip" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_management" target="_blank">Memory management</a>
+              <a class="topic-chip" href="https://javascript.info/garbage-collection" target="_blank">Garbage collection</a>
+              <a class="topic-chip" href="https://javascript.info/async-iterators-generators" target="_blank">Advanced async patterns</a>
+              <a class="topic-chip" href="https://developer.mozilla.org/en-US/docs/Web/API/AbortController" target="_blank">AbortController</a>
+              <a class="topic-chip" href="https://developer.mozilla.org/en-US/docs/WebAssembly/JavaScript_interface" target="_blank">WebAssembly interop</a>
+              <a class="topic-chip" href="https://developer.mozilla.org/en-US/docs/Web/Security/Types_of_attacks" target="_blank">XSS / CSRF / CSP</a>
+              <a class="topic-chip" href="https://astexplorer.net/" target="_blank">AST manipulation</a>
+              <a class="topic-chip" href="https://babeljs.io/docs/plugins" target="_blank">Babel plugins</a>
+              <a class="topic-chip" href="https://nodejs.org/en/docs" target="_blank">Node.js / Deno / Bun</a>
             </div>
             <div class="detail-label">Recommended Videos & Books</div>
             <div class="video-list">
@@ -1449,6 +1461,19 @@ document.<span class="fn">querySelector</span>(<span class="str">'#add-btn'</spa
 </footer>
 
 <script>
+  function scrollToPhase(index) {
+    const anchors = ['phase-1-anchor','phase-2-anchor','phase-3-anchor','phase-4-anchor','phase-5-anchor'];
+    const target = document.getElementById(anchors[index]);
+    if (!target) return;
+    setTimeout(() => {
+      const y = target.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+      if (!target.classList.contains('open')) {
+        togglePhase(target);
+      }
+    }, 50);
+  }
+
   function togglePhase(row) {
     const isOpen = row.classList.contains('open');
     document.querySelectorAll('.phase-row.open').forEach(r => {
@@ -1460,6 +1485,10 @@ document.<span class="fn">querySelector</span>(<span class="str">'#add-btn'</spa
       row.querySelector('.phase-toggle').textContent = '×';
     }
   }
+
+  document.querySelectorAll('.topic-chip').forEach(chip => {
+    chip.addEventListener('click', e => e.stopPropagation());
+  });
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
