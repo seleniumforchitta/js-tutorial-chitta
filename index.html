@@ -568,25 +568,79 @@
   .vl-text .vm { font-size: 12px; color: var(--text3); margin-top: 1px; }
 
   .projects-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
   }
 
   .project-chip {
     background: var(--bg3);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 8px 12px;
+    border-radius: 10px;
+    padding: 12px 14px;
     font-size: 13px;
     color: var(--text2);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    cursor: pointer;
   }
 
-  .project-chip::before {
-    content: '▸ ';
+  .project-chip:hover {
+    border-color: var(--accent);
+    background: rgba(247,201,72,0.05);
+    transform: translateY(-2px);
+  }
+
+  .project-chip .pc-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .project-chip .pc-title::before {
+    content: '▸';
     color: var(--accent);
     font-size: 11px;
+    flex-shrink: 0;
   }
+
+  .project-chip .pc-desc {
+    font-size: 12px;
+    color: var(--text3);
+    line-height: 1.5;
+  }
+
+  .project-chip .pc-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2px;
+  }
+
+  .project-chip .pc-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    background: var(--surface);
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+
+  .project-chip .pc-link {
+    font-size: 11px;
+    color: var(--accent);
+    opacity: 0.7;
+    transition: opacity 0.15s;
+  }
+
+  .project-chip:hover .pc-link { opacity: 1; }
 
   /* ── FEATURES ── */
   .features-grid {
@@ -992,9 +1046,21 @@
             </div>
             <div class="detail-label">Build Projects</div>
             <div class="projects-row">
-              <span class="project-chip">Temperature converter</span>
-              <span class="project-chip">Simple quiz app</span>
-              <span class="project-chip">Console to-do list</span>
+              <a class="project-chip" href="https://github.com/search?q=javascript+temperature+converter&type=repositories" target="_blank">
+                <div class="pc-title">Temperature converter</div>
+                <div class="pc-desc">Convert Celsius ↔ Fahrenheit. Practice variables, operators, and functions.</div>
+                <div class="pc-footer"><span class="pc-tag">beginner</span><span class="pc-link">examples ↗</span></div>
+              </a>
+              <a class="project-chip" href="https://github.com/search?q=javascript+quiz+app+beginner&type=repositories" target="_blank">
+                <div class="pc-title">Simple quiz app</div>
+                <div class="pc-desc">5-question quiz with score tracking. Practice arrays, loops, and conditionals.</div>
+                <div class="pc-footer"><span class="pc-tag">beginner</span><span class="pc-link">examples ↗</span></div>
+              </a>
+              <a class="project-chip" href="https://github.com/search?q=javascript+todo+list+console&type=repositories" target="_blank">
+                <div class="pc-title">Console to-do list</div>
+                <div class="pc-desc">Add and remove tasks in the browser console. Practice objects and arrays together.</div>
+                <div class="pc-footer"><span class="pc-tag">beginner</span><span class="pc-link">examples ↗</span></div>
+              </a>
             </div>
           </div>
         </div>
@@ -1047,9 +1113,21 @@
             </div>
             <div class="detail-label">Build Projects</div>
             <div class="projects-row">
-              <span class="project-chip">Interactive to-do app</span>
-              <span class="project-chip">Expense tracker</span>
-              <span class="project-chip">Color palette generator</span>
+              <a class="project-chip" href="https://github.com/search?q=javascript+todo+app+dom&type=repositories" target="_blank">
+                <div class="pc-title">Interactive to-do app</div>
+                <div class="pc-desc">Full UI — add, delete, mark done. Combines DOM manipulation, events, and localStorage.</div>
+                <div class="pc-footer"><span class="pc-tag">elementary</span><span class="pc-link">examples ↗</span></div>
+              </a>
+              <a class="project-chip" href="https://github.com/search?q=javascript+expense+tracker&type=repositories" target="_blank">
+                <div class="pc-title">Expense tracker</div>
+                <div class="pc-desc">Add expenses, filter by category, calculate totals. Practice array methods and DOM updates.</div>
+                <div class="pc-footer"><span class="pc-tag">elementary</span><span class="pc-link">examples ↗</span></div>
+              </a>
+              <a class="project-chip" href="https://github.com/search?q=javascript+color+palette+generator&type=repositories" target="_blank">
+                <div class="pc-title">Color palette generator</div>
+                <div class="pc-desc">Generate random hex colors on click. Practice template literals, DOM, and event handling.</div>
+                <div class="pc-footer"><span class="pc-tag">elementary</span><span class="pc-link">examples ↗</span></div>
+              </a>
             </div>
           </div>
         </div>
@@ -1103,9 +1181,21 @@
             </div>
             <div class="detail-label">Build Projects</div>
             <div class="projects-row">
-              <span class="project-chip">Weather app (OpenWeatherMap)</span>
-              <span class="project-chip">Movie search (OMDB API)</span>
-              <span class="project-chip">OOP bank account</span>
+              <a class="project-chip" href="https://github.com/search?q=javascript+weather+app+openweathermap&type=repositories" target="_blank">
+                <div class="pc-title">Weather app</div>
+                <div class="pc-desc">Fetch live data from OpenWeatherMap API. Practice async/await, Fetch, and JSON parsing.</div>
+                <div class="pc-footer"><span class="pc-tag">intermediate</span><span class="pc-link">examples ↗</span></div>
+              </a>
+              <a class="project-chip" href="https://github.com/search?q=javascript+movie+search+omdb&type=repositories" target="_blank">
+                <div class="pc-title">Movie search app</div>
+                <div class="pc-desc">Search the OMDB API, show poster and details. Practice Promises, DOM rendering, and error handling.</div>
+                <div class="pc-footer"><span class="pc-tag">intermediate</span><span class="pc-link">examples ↗</span></div>
+              </a>
+              <a class="project-chip" href="https://github.com/search?q=javascript+bank+account+oop+class&type=repositories" target="_blank">
+                <div class="pc-title">OOP bank account</div>
+                <div class="pc-desc">Classes for Account and SavingsAccount — deposit, withdraw, interest. Practice OOP and inheritance.</div>
+                <div class="pc-footer"><span class="pc-tag">intermediate</span><span class="pc-link">examples ↗</span></div>
+              </a>
             </div>
           </div>
         </div>
@@ -1160,9 +1250,21 @@
             </div>
             <div class="detail-label">Build Projects</div>
             <div class="projects-row">
-              <span class="project-chip">Real-time chat (WebSockets)</span>
-              <span class="project-chip">Jest-tested utility library</span>
-              <span class="project-chip">Infinite scroll with IndexedDB</span>
+              <a class="project-chip" href="https://github.com/search?q=javascript+chat+app+websockets&type=repositories" target="_blank">
+                <div class="pc-title">Real-time chat app</div>
+                <div class="pc-desc">WebSockets, Observer pattern, live message broadcasting. Practice advanced async and design patterns.</div>
+                <div class="pc-footer"><span class="pc-tag">advanced</span><span class="pc-link">examples ↗</span></div>
+              </a>
+              <a class="project-chip" href="https://github.com/search?q=javascript+utility+library+jest+tests&type=repositories" target="_blank">
+                <div class="pc-title">Jest-tested utility library</div>
+                <div class="pc-desc">Build lodash-like helpers with 100% Jest test coverage. Practice TDD and functional programming.</div>
+                <div class="pc-footer"><span class="pc-tag">advanced</span><span class="pc-link">examples ↗</span></div>
+              </a>
+              <a class="project-chip" href="https://github.com/search?q=javascript+infinite+scroll+indexeddb&type=repositories" target="_blank">
+                <div class="pc-title">Infinite scroll with cache</div>
+                <div class="pc-desc">Virtual list, lazy loading, IndexedDB for caching. Focus on performance and memory efficiency.</div>
+                <div class="pc-footer"><span class="pc-tag">advanced</span><span class="pc-link">examples ↗</span></div>
+              </a>
             </div>
           </div>
         </div>
@@ -1222,9 +1324,21 @@
             </div>
             <div class="detail-label">Build Projects</div>
             <div class="projects-row">
-              <span class="project-chip">Build a JS framework from scratch</span>
-              <span class="project-chip">Write a Babel plugin</span>
-              <span class="project-chip">WebAssembly integration (Rust)</span>
+              <a class="project-chip" href="https://github.com/search?q=javascript+framework+from+scratch+virtual+dom&type=repositories" target="_blank">
+                <div class="pc-title">Build a JS framework</div>
+                <div class="pc-desc">Reactivity system, virtual DOM diffing, component lifecycle — all from scratch. The ultimate JS challenge.</div>
+                <div class="pc-footer"><span class="pc-tag">expert</span><span class="pc-link">examples ↗</span></div>
+              </a>
+              <a class="project-chip" href="https://babeljs.io/docs/plugins#plugin-development" target="_blank">
+                <div class="pc-title">Write a Babel plugin</div>
+                <div class="pc-desc">Transform code using AST manipulation. Create custom syntax sugar or auto-instrumentation.</div>
+                <div class="pc-footer"><span class="pc-tag">expert</span><span class="pc-link">Babel docs ↗</span></div>
+              </a>
+              <a class="project-chip" href="https://developer.mozilla.org/en-US/docs/WebAssembly/Rust_to_Wasm" target="_blank">
+                <div class="pc-title">WebAssembly integration</div>
+                <div class="pc-desc">Write a performance-critical algorithm in Rust, compile to WASM, and call it from JavaScript.</div>
+                <div class="pc-footer"><span class="pc-tag">expert</span><span class="pc-link">MDN guide ↗</span></div>
+              </a>
             </div>
           </div>
         </div>
@@ -1486,7 +1600,7 @@ document.<span class="fn">querySelector</span>(<span class="str">'#add-btn'</spa
     }
   }
 
-  document.querySelectorAll('.topic-chip').forEach(chip => {
+  document.querySelectorAll('.topic-chip, .project-chip').forEach(chip => {
     chip.addEventListener('click', e => e.stopPropagation());
   });
 
