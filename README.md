@@ -2,7 +2,7 @@
 
 > A complete, project-driven JavaScript learning roadmap — from absolute beginner to expert level. Built as a beautiful dark-mode single-page website with structured curriculum, curated videos, and hands-on projects.
 
-🌐 **Live Site:** [https://your-username.github.io/js-tutorial/](https://your-username.github.io/js-tutorial/)
+🌐 **Live Site:** [https://seleniumforchitta.github.io/js-tutorial-chitta/](https://seleniumforchitta.github.io/js-tutorial-chitta/)
 
 ---
 
@@ -124,7 +124,7 @@ Just visit the live URL above. No installation needed.
 **Option 2 — Run it locally**
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/js-tutorial-chitta.git
+git clone https://github.com/seleniumforchitta/js-tutorial-chitta.git
 
 # Open in browser — no build step needed
 open index.html
