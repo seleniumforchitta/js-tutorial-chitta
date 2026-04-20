@@ -22,6 +22,9 @@
 <!-- SEO -->
 <meta name="description" content="A complete JavaScript learning roadmap from beginner to expert — 5 phases, 40+ topics, curated videos, free books, and 12+ real projects. All completely free." />
 <meta name="author" content="Chitta" />
+<!-- Favicon — JS logo in browser tab -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23f7c948'/><text x='50%25' y='72%25' text-anchor='middle' font-family='monospace' font-weight='700' font-size='16' fill='%230a0a0f'>JS</text></svg>" />
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <style>
@@ -1256,6 +1259,37 @@ console.<span class="fn">log</span>(<span class="str">`Average: ${<span class="v
         </div>
 
         <div class="code-panel">
+          <div class="code-header">
+            <div class="code-dot" style="background:#ff5f57;"></div>
+            <div class="code-dot" style="background:#ffbd2e;"></div>
+            <div class="code-dot" style="background:#28c840;"></div>
+            <span class="code-filename">phase2-dom.js</span>
+          </div>
+          <div class="code-body"><span class="cm">// Phase 2 — DOM manipulation & events</span>
+<span class="kw">const</span> <span class="var">todos</span> <span class="op">=</span> [];
+
+<span class="kw">const</span> <span class="fn">addTodo</span> <span class="op">=</span> (<span class="var">text</span>) <span class="op">=></span> {
+  <span class="var">todos</span>.<span class="fn">push</span>({ <span class="var">text</span>, done: <span class="kw">false</span> });
+  <span class="fn">render</span>();
+};
+
+<span class="kw">const</span> <span class="fn">render</span> <span class="op">=</span> () <span class="op">=></span> {
+  <span class="kw">const</span> <span class="var">list</span> <span class="op">=</span> document.<span class="fn">querySelector</span>(<span class="str">'#todo-list'</span>);
+  <span class="var">list</span>.innerHTML <span class="op">=</span> <span class="var">todos</span>
+    .<span class="fn">map</span>((<span class="var">t</span>, <span class="var">i</span>) <span class="op">=></span> <span class="str">`
+      &lt;li class="${<span class="var">t</span>.done ? <span class="str">'done'</span> : <span class="str">''</span>}"
+        onclick="toggle(${<span class="var">i</span>})"&gt;${<span class="var">t</span>.text}&lt;/li&gt;
+    `</span>).<span class="fn">join</span>(<span class="str">''</span>);
+};
+
+document.<span class="fn">querySelector</span>(<span class="str">'#add-btn'</span>)
+  .<span class="fn">addEventListener</span>(<span class="str">'click'</span>, () <span class="op">=></span> {
+    <span class="kw">const</span> <span class="var">input</span> <span class="op">=</span> document.<span class="fn">querySelector</span>(<span class="str">'#todo-input'</span>);
+    <span class="kw">if</span> (<span class="var">input</span>.value) <span class="fn">addTodo</span>(<span class="var">input</span>.value);
+  });</div>
+        </div>
+
+        <div class="code-panel" style="margin-top:1.5rem;">
           <div class="code-header">
             <div class="code-dot" style="background:#ff5f57;"></div>
             <div class="code-dot" style="background:#ffbd2e;"></div>
