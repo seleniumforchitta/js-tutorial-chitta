@@ -173,7 +173,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 👤 Author
 
-**Chitta**
+**Chitta** - https://www.linkedin.com/in/chittaranjan-swain/
 
 Feel free to connect, share feedback, or follow for more projects!
 
